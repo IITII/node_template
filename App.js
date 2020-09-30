@@ -1,6 +1,6 @@
 'use strict';
 const config = require('./models/config')
-const { logger, loggerMiddleware } = require('./middlewares/logger');
+const {logger, loggerMiddleware} = require('./middlewares/logger');
 const Koa = require('koa');
 const app = new Koa();
 const BodyParser = require('koa-bodyparser');
@@ -22,8 +22,9 @@ app.use(convert(BodyParser({
     logger.error(err);
   }
 })));
-app.use(utilsMiddleware.postData)
+app.use(utilsMiddleware.postData);
 app.use(publicRouter.routes());
+app.use(publicRouter.allowedMethods());
 
 app.listen(config.port || 3000, () => {
   logger.info(`Service is listening on port: ${config.port || 3000}`)

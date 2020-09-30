@@ -1,9 +1,8 @@
-FROM node:latest as builder
+FROM node:slim as builder
 LABEL maintainer="IITII <ccmejx@gmail.com>"
-COPY . /reviewPic
-WORKDIR /reviewPic
+COPY . /node_template
+WORKDIR /node_template
 RUN npm i && \
 apt clean && \
-rm -rf .git Dockerfile .idea
 EXPOSE 3000
 CMD ["npm","start"]
