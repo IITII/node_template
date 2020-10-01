@@ -1,9 +1,8 @@
 'use strict';
 const Router = require('koa-router');
 const router = Router();
-const auth = require('../controllers/auth')
-
-module.exports = router;
+const auth = require('../controllers/auth'),
+  mysql_controller = require('../controllers/mysql_controller');
 
 router.get('/', async (ctx, next) => {
   ctx.response.status = 200;
@@ -14,4 +13,11 @@ router.get('/', async (ctx, next) => {
   return next()
 });
 
-router.post('/', auth);
+router
+  .post('/', auth)
+  .post('/create', mysql_controller.create)
+  .get('/find_all', mysql_controller.findAll)
+  .post('/find_by_pk', mysql_controller.findByPk)
+  .post('/update', mysql_controller.update)
+
+module.exports = router;

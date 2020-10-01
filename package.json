@@ -16,6 +16,8 @@
     "koa-bodyparser": "^4.3.0",
     "koa-convert": "^1.2.0",
     "koa-log4": "^2.3.2",
-    "koa-router": "^9.1.0"
+    "koa-router": "^9.1.0",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.3.5"
   }
 }
