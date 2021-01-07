@@ -6,6 +6,7 @@ example/
 models/config.json
 .vs
 .vscode
+.DS_Store
 
 # Logs
 logs

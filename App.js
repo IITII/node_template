@@ -1,14 +1,16 @@
 'use strict';
-const config = require('./models/config')
-const {logger, loggerMiddleware} = require('./middlewares/logger');
-const Koa = require('koa');
-const app = new Koa();
-const BodyParser = require('koa-bodyparser');
 // koa 封装类
-const convert = require('koa-convert');
+const Koa = require('koa'),
+  BodyParser = require('koa-bodyparser'),
+  convert = require('koa-convert'),
+  app = new Koa(),
+  config = require('./models/config'),
+  {logger, loggerMiddleware} = require('./middlewares/logger'),
+  commonRouter = require('./routes/common'),
+  publicRouter = require('./routes/public'),
+  privateRouter = require('./routes/private'),
+  utilsMiddleware = require('./middlewares/utils');
 
-const publicRouter = require('./routes/public');
-const utilsMiddleware = require('./middlewares/utils');
 // logger
 app.use(loggerMiddleware);
 app.use(convert(BodyParser({
@@ -21,11 +23,22 @@ app.use(convert(BodyParser({
     ctx.response.body = "Form 表单数据过大";
     logger.error(err);
   }
-})));
-app.use(utilsMiddleware.postData);
-app.use(publicRouter.routes());
-app.use(publicRouter.allowedMethods());
+})))
+// post logger
+app.use(utilsMiddleware.postData)
 
-app.listen(config.port || 3000, () => {
+// Router
+app
+  // common router
+  .use(commonRouter.routes())
+  .use(commonRouter.allowedMethods())
+  // public router
+  .use(publicRouter.routes())
+  .use(publicRouter.allowedMethods())
+  // private router
+  .use(privateRouter.routes())
+  .use(privateRouter.allowedMethods())
+
+app.listen(config.port, () => {
   logger.info(`Service is listening on port: ${config.port || 3000}`)
-});
+})

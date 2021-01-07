@@ -6,7 +6,7 @@ const log4js = require('koa-log4');
 const utils = require('../lib/utils');
 const logger = log4js.getLogger(config.log.logName);
 
-logger.level = (config.log.level || "debug");
+logger.level = config.log.level
 // 这个是判断是否有logs目录，没有就新建，用来存放日志
 const logsDir = path.parse(config.log.logPath).dir;
 if (!fs.existsSync(logsDir)) {
@@ -23,7 +23,7 @@ log4js.configure({
   categories: {
     default: {
       appenders: ['console', 'dateFile'],
-      level: (config.log.level || 'debug')
+      level: config.log.logLevel
     }
   }
 });

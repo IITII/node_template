@@ -1,14 +1,16 @@
 'use strict';
-const config = require('../models/config');
-const {logger} = require('../middlewares/logger');
 
-module.exports = (ctx, next) => {
-  let data = ctx.request.body;
-  if (data.token === config.app.APP_VERIFICATION_TOKEN
-    && data.type === 'url_verification')
-    ctx.response.body = JSON.stringify({
-      challenge: data.challenge
-    });
-  next();
+function publicAuth(ctx, next) {
+  ctx.response.body = "public auth"
+  return next()
 }
 
+function privateAuth(ctx, next) {
+  ctx.response.body = "private auth"
+  return next()
+}
+
+module.exports = {
+  publicAuth,
+  privateAuth
+}

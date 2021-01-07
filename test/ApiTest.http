@@ -1,0 +1,16 @@
+### GET HelloWorld
+GET http://localhost:3000/
+Accept: application/json
+
+### POST Public Auth
+POST http://localhost:3000/public/auth
+Content-Type: application/json
+
+{}
+
+### POST Private Auth
+POST http://localhost:3000/private/auth
+Content-Type: application/json
+
+{}
+
