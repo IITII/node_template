@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 // koa 封装类
 const Koa = require('koa'),
   BodyParser = require('koa-bodyparser'),
@@ -9,19 +9,19 @@ const Koa = require('koa'),
   commonRouter = require('./routes/common'),
   publicRouter = require('./routes/public'),
   privateRouter = require('./routes/private'),
-  utilsMiddleware = require('./middlewares/utils');
+  utilsMiddleware = require('./middlewares/utils')
 
 // logger
-app.use(loggerMiddleware);
+app.use(loggerMiddleware)
 app.use(convert(BodyParser({
   encode: 'utf-8',
   formLimit: '12mb',
   jsonLimit: "7mb",
   textLimit: "5mb",
   onerror: (err, ctx) => {
-    ctx.response.status = 413;
-    ctx.response.body = "Form 表单数据过大";
-    logger.error(err);
+    ctx.response.status = 413
+    ctx.response.body = "Form 表单数据过大"
+    logger.error(err)
   }
 })))
 // post logger

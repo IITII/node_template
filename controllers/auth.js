@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 function publicAuth(ctx, next) {
   ctx.response.body = "public auth"

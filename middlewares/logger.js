@@ -1,18 +1,18 @@
-'use strict';
-const fs = require('fs');
-const path = require('path');
-const config = require("../models/config");
-const log4js = require('koa-log4');
-const utils = require('../lib/utils');
-const logger = log4js.getLogger(config.log.logName);
+'use strict'
+const fs = require('fs')
+const path = require('path')
+const config = require("../models/config")
+const log4js = require('koa-log4')
+const utils = require('../lib/utils')
+const logger = log4js.getLogger(config.log.logName)
 
 logger.level = config.log.level
 // 这个是判断是否有logs目录，没有就新建，用来存放日志
-const logsDir = path.parse(config.log.logPath).dir;
+const logsDir = path.parse(config.log.logPath).dir
 if (!fs.existsSync(logsDir)) {
   utils.mkdir(logsDir, () => {
     console.log("Create un-exist path: " + logsDir)
-  });
+  })
 }
 // 配置log4.js
 log4js.configure({
@@ -26,22 +26,22 @@ log4js.configure({
       level: config.log.logLevel
     }
   }
-});
+})
 // logger中间件
 const loggerMiddleware = async (ctx, next) => {
 // 请求开始时间
-  const start = new Date();
-  await next();
+  const start = new Date()
+  await next()
   // 结束时间
-  const ms = new Date() - start;
+  const ms = new Date() - start
   // 打印出请求相关参数
   const remoteAddress = ctx.headers['x-forwarded-for'] || ctx.ip || ctx.ips ||
     (ctx.socket && (ctx.socket.remoteAddress ||
-      (ctx.socket.socket && ctx.socket.socket.remoteAddress)));
-  let logText = `${remoteAddress} - ${ctx.method} ${ctx.status} ${ctx.url} - ${ms}ms`;
-  logger.debug(logText);
-};
+      (ctx.socket.socket && ctx.socket.socket.remoteAddress)))
+  let logText = `${remoteAddress} - ${ctx.method} ${ctx.status} ${ctx.url} - ${ms}ms`
+  logger.debug(logText)
+}
 module.exports = {
   logger,
   loggerMiddleware
-};
+}

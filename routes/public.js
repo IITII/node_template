@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 const Router = require('koa-router'),
   router = new Router(),
   publicRouter = new Router(),

@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 const path = require('path')
 let config = {
   port: process.env.TMP_PORT || 3000,
@@ -8,4 +8,4 @@ let config = {
     logLevel: process.env.LOGGER_LEVEL || 'debug'
   },
 }
-module.exports = config;
+module.exports = config
