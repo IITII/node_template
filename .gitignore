@@ -4,6 +4,7 @@ example/
 models/config.json
 .vs
 .vscode
+package-lock.json
 
 # Logs
 logs
